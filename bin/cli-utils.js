@@ -10,6 +10,25 @@ var WALLET_ENCRYPTION_OPTS = {
   iter: 5000
 };
 
+var bitcore=Client.Bitcore;
+// start: modify testnet to regtest
+bitcore.Networks.remove(bitcore.Networks.testnet);
+bitcore.Networks.add({
+  name: 'testnet',
+  alias: 'testnet',
+  pubkeyhash: 0x6f,
+  privatekey: 0xef,
+  scripthash: 0xc4,
+  xpubkey: 0x043587cf,
+  xprivkey: 0x04358394,
+  networkMagic: 0xFABFB5DA,
+  port: 18444,
+  dnsSeeds: [ ]
+});
+bitcore.Networks.testnet=bitcore.Networks.get("testnet");
+// end: modify testnet to regtest
+
+
 var Utils = function() {};
 
 var die = Utils.die = function(err) {
@@ -100,9 +119,10 @@ Utils.getClient = function(args, opts, cb) {
   });
 
   var client = new Client({
-    baseUrl: url.resolve(host, '/bws/api'),
+    baseUrl: url.resolve(host, '/plankws/api'),
     verbose: args.verbose,
   });
+
 
   storage.load(function(err, walletData) {
     if (err) {

@@ -2,7 +2,8 @@ var _ = require('lodash');
 var url = require('url');
 var read = require('read')
 var log = require('npmlog');
-var Client = require('bitcore-wallet-client');
+//var Client = require('bitcore-wallet-client');
+var Client = require('plank-client');
 var FileStorage = require('./filestorage');
 var sjcl = require('sjcl');
 
